@@ -10,7 +10,7 @@ public interface DateTime
 {
     Time getTime();
 
-    Date getSolarDate();
+    Date getJalaliDate();
 
     Date getIranDate();
 
@@ -22,9 +22,9 @@ public interface DateTime
 
     LocalDateTime getLocalDateTime();
 
-    String toStringSolarDateTime();
+    String toStringJalaliDateTime();
 
-    String toStringIranDateTime();
+    String toStringPersianDateTime();
 
     interface Date
     {

@@ -58,7 +58,7 @@ public final class DateTimeConvertor
         persianDateImpl.setDayName(dayName);
         persianDateImpl.setMonthName(monthName);
 
-        if (dateTimeImpl.getSolarDate() == null) dateTimeImpl.setSolarDate(dateImpl);
+        if (dateTimeImpl.getJalaliDate() == null) dateTimeImpl.setJalaliDate(dateImpl);
         if (dateTimeImpl.getIranDate() == null) dateTimeImpl.setPersianDate(persianDateImpl);
 
         timeImpl.setHour((int) time[0]);

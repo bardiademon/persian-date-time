@@ -2,6 +2,7 @@
 Persian Date Time
 
 ## Example
+
 ```java
 package com.bardiademon.persiandatetime;
 
@@ -17,20 +18,19 @@ public class Main
         System.out.println("bardiademon");
 
         final DateTimeConvertor convertor = new DateTimeConvertor();
-        
+
         final DateTime now = convertor.now();
 
-        System.out.println(now.toStringIranDateTime());
-        System.out.println(now.toStringSolarDateTime());
+        System.out.println(now.toStringPersianDateTime());
+        System.out.println(now.toStringJalaliDateTime());
 
         System.out.println();
 
         final LocalDateTime localDateTime = LocalDateTime.of(2022 , 9 , 16 , 17 , 0 , 0);
         final DateTime convert = convertor.convert(localDateTime);
 
-        System.out.println(convert.toStringIranDateTime());
-        System.out.println(convert.toStringSolarDateTime());
-
+        System.out.println(convert.toStringPersianDateTime());
+        System.out.println(convert.toStringJalaliDateTime());
     }
 }
 ```

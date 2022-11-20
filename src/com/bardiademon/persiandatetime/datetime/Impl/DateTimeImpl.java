@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class DateTimeImpl implements DateTime
 {
     private Time time;
-    private Date solarDate, persianDate;
+    private Date jalaliDate, persianDate;
 
     @Override
     public Time getTime()
@@ -18,9 +18,9 @@ public class DateTimeImpl implements DateTime
     }
 
     @Override
-    public Date getSolarDate()
+    public Date getJalaliDate()
     {
-        return solarDate;
+        return jalaliDate;
     }
 
     @Override
@@ -34,9 +34,9 @@ public class DateTimeImpl implements DateTime
         this.time = time;
     }
 
-    public void setSolarDate(Date date)
+    public void setJalaliDate(Date date)
     {
-        this.solarDate = date;
+        this.jalaliDate = date;
     }
 
     public void setPersianDate(Date persianDate)
@@ -72,19 +72,19 @@ public class DateTimeImpl implements DateTime
         return new java.util.Date(Timestamp.valueOf(getLocalDateTime()).getTime());
     }
 
-    public String toStringIranDateTime()
+    public String toStringPersianDateTime()
     {
         return String.format("%s - %s" , getIranDate().toString() , getTime().toString());
     }
 
-    public String toStringSolarDateTime()
+    public String toStringJalaliDateTime()
     {
-        return String.format("%s - %s" , getSolarDate().toString() , getTime().toString());
+        return String.format("%s - %s" , getJalaliDate().toString() , getTime().toString());
     }
 
     @Override
     public String toString()
     {
-        return toStringIranDateTime();
+        return toStringPersianDateTime();
     }
 }
