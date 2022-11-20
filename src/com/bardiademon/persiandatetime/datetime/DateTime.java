@@ -12,19 +12,27 @@ public interface DateTime
 
     Date getJalaliDate();
 
-    Date getIranDate();
+    Date getDate();
 
     String formatter(final String pattern);
 
     String formatter(final SimpleDateFormat pattern);
 
-    java.util.Date getDate();
+    String formatterJalali(final String pattern);
+
+    String formatterJalali(final SimpleDateFormat simpleDateFormat);
+
+    java.util.Date toDate();
+
+    java.util.Date toJalaliDate();
 
     LocalDateTime getLocalDateTime();
 
+    LocalDateTime getJalaliLocalDateTime();
+
     String toStringJalaliDateTime();
 
-    String toStringPersianDateTime();
+    String toStringDateTime();
 
     interface Date
     {

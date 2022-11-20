@@ -6,10 +6,9 @@ Persian Date Time
 ```java
 package com.bardiademon.persiandatetime;
 
+import com.bardiademon.persiandatetime.datetime.Convertor;
 import com.bardiademon.persiandatetime.datetime.DateTime;
 import com.bardiademon.persiandatetime.datetime.convert.DateTimeConvertor;
-
-import java.time.LocalDateTime;
 
 public class Main
 {
@@ -17,20 +16,31 @@ public class Main
     {
         System.out.println("bardiademon");
 
-        final DateTimeConvertor convertor = new DateTimeConvertor();
-
+        final Convertor convertor = DateTimeConvertor.convertor();
         final DateTime now = convertor.now();
+        final DateTime.Time time = now.getTime();
 
-        System.out.println(now.toStringPersianDateTime());
-        System.out.println(now.toStringJalaliDateTime());
+        System.out.printf("%s\n%s %s\n%s\n%s %s\n" ,
 
-        System.out.println();
+                time , time.getNameAt24().getPersianName() ,
+                now.formatter("hh:mm:ss") ,
 
-        final LocalDateTime localDateTime = LocalDateTime.of(2022 , 9 , 16 , 17 , 0 , 0);
-        final DateTime convert = convertor.convert(localDateTime);
+                now.formatter("hh:mm:ss aaa") ,
 
-        System.out.println(convert.toStringPersianDateTime());
-        System.out.println(convert.toStringJalaliDateTime());
+                now.formatter("hh:mm:ss") ,
+                time.getTimett()
+        );
+
+        System.out.println("==============");
+
+        final DateTime mahsaAminiBirth = convertor.of(2000 , 9 , 20);
+        final DateTime mahsaAminiKilled = convertor.of(2022 , 9 , 16);
+
+        System.out.printf("\uD83D\uDC7C\uD83C\uDFFB: %s\n" , mahsaAminiBirth.getDate());
+        System.out.printf("\uD83D\uDE14: %s\n" , mahsaAminiKilled.getDate());
+        System.out.println("==============");
+        System.out.printf("\uD83D\uDC7C\uD83C\uDFFB: %s\n" , mahsaAminiBirth.getJalaliDate());
+        System.out.printf("\uD83D\uDE14: %s\n" , mahsaAminiKilled.getJalaliDate());
     }
 }
 ```
@@ -38,9 +48,14 @@ public class Main
 ## Output
 ```
 bardiademon
-یک شنبه 29 آبان 2581 - 16:27:32
-یک شنبه 29 آبان 1401 - 16:27:32
-
-جمعه 25 شهریور 2581 - 17:00:00
-جمعه 25 شهریور 1401 - 17:00:00
+23:35:13
+شب 11:35:13
+11:35:13 PM
+11:35:13 PM
+==============
+👼🏻: چهار شنبه 30 شهریور 2559
+😔: جمعه 25 شهریور 2581
+==============
+👼🏻: چهار شنبه 30 شهریور 1379
+😔: جمعه 25 شهریور 1401
 ```

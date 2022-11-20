@@ -1,5 +1,6 @@
 package com.bardiademon.persiandatetime.datetime.convert;
 
+import com.bardiademon.persiandatetime.datetime.Convertor;
 import com.bardiademon.persiandatetime.datetime.DateTime;
 import com.bardiademon.persiandatetime.datetime.Impl.DateImpl;
 import com.bardiademon.persiandatetime.datetime.Impl.DateTimeImpl;
@@ -12,21 +13,49 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
-public final class DateTimeConvertor
+public final class DateTimeConvertor implements Convertor
 {
     private static final int KEY_YMD_PERSIAN = 0, KEY_YMD_JALALI = 1;
 
+    private static Convertor convertor;
+
+    private DateTimeConvertor()
+    {
+    }
+
+    public static Convertor convertor()
+    {
+        if (convertor == null) convertor = new DateTimeConvertor();
+        return convertor;
+    }
+
+    @Override
     public DateTime now() throws NullPointerException
     {
-        return convert(new Date());
+        return of(new Date());
     }
 
-    public DateTime convert(final LocalDateTime localDateTime) throws NullPointerException
+    @Override
+    public DateTime of(final int year , final int month , final int dayOfMonth) throws NullPointerException
     {
-        return convert(Timestamp.valueOf(localDateTime));
+        return of(year , month , dayOfMonth , 0 , 0 , 0);
     }
 
-    public DateTime convert(final Date date) throws NullPointerException
+    @Override
+    public DateTime of(final int year , final int month , final int dayOfMonth , final int hour , final int minute , final int second) throws NullPointerException
+    {
+        final LocalDateTime of = LocalDateTime.of(year , month , dayOfMonth , hour , minute);
+        return of(Timestamp.valueOf(of));
+    }
+
+    @Override
+    public DateTime of(final LocalDateTime localDateTime) throws NullPointerException
+    {
+        return of(Timestamp.valueOf(localDateTime));
+    }
+
+    @Override
+    public DateTime of(final Date date) throws NullPointerException
     {
         if (date == null) throw new NullPointerException("Data is null");
 
@@ -59,7 +88,7 @@ public final class DateTimeConvertor
         persianDateImpl.setMonthName(monthName);
 
         if (dateTimeImpl.getJalaliDate() == null) dateTimeImpl.setJalaliDate(dateImpl);
-        if (dateTimeImpl.getIranDate() == null) dateTimeImpl.setPersianDate(persianDateImpl);
+        if (dateTimeImpl.getDate() == null) dateTimeImpl.setPersianDate(persianDateImpl);
 
         timeImpl.setHour((int) time[0]);
         timeImpl.setMinutes((int) time[1]);

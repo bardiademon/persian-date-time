@@ -24,7 +24,7 @@ public class DateTimeImpl implements DateTime
     }
 
     @Override
-    public Date getIranDate()
+    public Date getDate()
     {
         return persianDate;
     }
@@ -53,28 +53,56 @@ public class DateTimeImpl implements DateTime
     @Override
     public String formatter(final SimpleDateFormat simpleDateFormat)
     {
-        return simpleDateFormat.format(getDate());
+        return simpleDateFormat.format(toDate());
+    }
+
+    @Override
+    public String formatterJalali(String pattern)
+    {
+        return formatterJalali(new SimpleDateFormat(pattern));
+    }
+
+    @Override
+    public String formatterJalali(SimpleDateFormat simpleDateFormat)
+    {
+        return simpleDateFormat.format(toJalaliDate());
     }
 
     @Override
     public LocalDateTime getLocalDateTime()
     {
-        final Date iranDate = getIranDate();
+        final Date persianDate = getDate();
         final Time time = getTime();
 
-        return LocalDateTime.of(iranDate.getYear() , iranDate.getMonth() , iranDate.getDay() ,
+        return LocalDateTime.of(persianDate.getYear() , persianDate.getMonth() , persianDate.getDay() ,
                 time.getHour() , time.getMinutes() , time.getSeconds());
     }
 
     @Override
-    public java.util.Date getDate()
+    public LocalDateTime getJalaliLocalDateTime()
+    {
+        final Date jalaliDate = getJalaliDate();
+        final Time time = getTime();
+
+        return LocalDateTime.of(jalaliDate.getYear() , jalaliDate.getMonth() , jalaliDate.getDay() ,
+                time.getHour() , time.getMinutes() , time.getSeconds());
+    }
+
+    @Override
+    public java.util.Date toDate()
     {
         return new java.util.Date(Timestamp.valueOf(getLocalDateTime()).getTime());
     }
 
-    public String toStringPersianDateTime()
+    @Override
+    public java.util.Date toJalaliDate()
     {
-        return String.format("%s - %s" , getIranDate().toString() , getTime().toString());
+        return new java.util.Date(Timestamp.valueOf(getJalaliLocalDateTime()).getTime());
+    }
+
+    public String toStringDateTime()
+    {
+        return String.format("%s - %s" , getDate().toString() , getTime().toString());
     }
 
     public String toStringJalaliDateTime()
@@ -85,6 +113,6 @@ public class DateTimeImpl implements DateTime
     @Override
     public String toString()
     {
-        return toStringPersianDateTime();
+        return toStringDateTime();
     }
 }
